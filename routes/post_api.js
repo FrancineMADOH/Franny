@@ -7,7 +7,28 @@ const {addarticleValidation,postillustrationValidation,commentValidation} = requ
 const router = express.Router();
 
 //created un article
-router.post('/add', async(req,res)=>{
+router.post('/add', verify,postillustrationValidation.single('illustration'), async(req,res)=>{
+    const {error} = addarticleValidation(req.body)
+    if(error) return res.status(400).send(error.details[0].message);
+  
+    var img = req.file.path;
+    var encodedimage = img.toString('base64');
+
+    const illustration ={
+        data:Buffer.from(encodedimage,'base64'),
+        contentType: req.file.mimetype
+    }
+    //get the author via the token
+
+    //create a post
+    const post = new Post({
+        title: req.body.title,
+        description:req.body.description,
+        content:req.body.content,
+       // author:
+        illustration: illustration
+
+    });
 
 });
 
@@ -19,14 +40,14 @@ router.delete('/update',(req,res)=>{});
 
 //get all the articles admin
 router.get('/all', verify, (req,res)=>{
-    res.send('this is all about private routes');
-    User.findByOne({_id:req.user})
+    //res.send('this is all about private routes');
+    res.send(req.admin);
+    //User.findByOne({_id:req.user})
 });
 
 //get all the articles users
 router.get('/allposts', verify, (req,res)=>{
-    res.send('this is all about private routes');
-    User.findByOne({_id:req.user})
+    //User.findByOne({_id:req.user})
 });
 
 

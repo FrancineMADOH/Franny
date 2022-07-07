@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/admins'); 
+const verify = require('../middlewares/verify_token');
 const { signupValidation, signinValidation,resetPasswordValidation, upload } = require('../middlewares/validation');
 
 const router = express.Router();
@@ -50,22 +51,27 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
 });
 
 //login router
-router.post('/signin', async(req,res)=> {
+router.patch('/signin', async(req,res)=> {
     //validate the data before login a user
     const {error} = signinValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
     const admin = await Admin.findOne({email:req.body.email});
+    //  //check if the password matches
     if(!admin) return res.status(400).send('Wrong Email/Password combination');
     const verifyPassword = await bcrypt.compare(req.body.password,admin.password);
     if(!verifyPassword) return res.status(400).send('invalid password!');
 
+    // //create a token an send it to the user
     const token = jwt.sign({_id: admin._id }, process.env.SECRET_TOKEN);
-    res.header('auth_token', token).send(token);
+    res.header('auth_token', token);
 
-    res.send('logged in !')
-
-    //check if the password matches
+    try{
+        update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
+       res.send(token);
+   }catch(e){
+       console.log(e);
+   } 
 });
 
 //update password
@@ -93,17 +99,15 @@ router.patch('/reset', async (req,res)=>{
 })
 
 //signout
-router.put("/signout", async(req,res)=>{
-    const admin = await Admin.findOne({email:req.body.email});
-    const token = jwt.sign({_id: admin._id }, process.env.SECRET_TOKEN);
-
-    jwt.sign(token, "",{expire:1}, (signout,err)=>{
-        if(signout){
-            res.send("You sucessfully looged out ")
-        } else{
-            res.send("failed to sign out !")
-        }
-    });
+router.patch("/signout",verify, async(req,res)=>{
+        try{
+            update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           res.send("admin successfully logout")
+       
+        }catch(e){
+           console.log(e);
+       } 
+  
 });
 
 module.exports = router;

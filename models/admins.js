@@ -27,6 +27,11 @@ const Admin = mongoose.model('Admin',{
         type: String,
         trim:true,
     },
+    authtoken:{
+        type:String,
+        default:"",
+        required:false
+    },
     avatar:{
         data:Buffer,
         contentType: String,
@@ -36,6 +41,10 @@ const Admin = mongoose.model('Admin',{
         type:Date,
         default:Date.now()
     },
-})
+    superUser:{
+        type:Boolean,
+        default:false
+    }
+});
 
 module.exports = Admin

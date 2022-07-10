@@ -20,7 +20,7 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
             data: Buffer.from(encode_img,'base64'), 
             contentType: req.file.mimetype
         }
-        console.log(avatar);
+        console.log(img)
     // //check if the users already admin in the db
     const emailExist = await Admin.findOne({email:req.body.email});
     if(emailExist) return res.status(400).send('Email already exist!');
@@ -109,5 +109,6 @@ router.patch("/signout",verify, async(req,res)=>{
        } 
   
 });
+
 
 module.exports = router;

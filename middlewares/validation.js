@@ -30,38 +30,39 @@ const resetPasswordValidation  = (data)=>{
     return schema.validate(data);
 }
 
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, '../avatars')
+      cb(null, './public/avatars')
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
     },
     limits:{fileSize:2000000}
 })
-var upload = multer({ storage: storage }); 
+let upload = multer({ storage: storage }); 
+
+let illustration = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    },
+    limits:{fileSize:2000000}
+})
+let uploadillustration = multer({ storage: illustration }); 
 
 //validate posts
 const addarticleValidation = (data)=>{
     const schema = joi.object({
-        title: joi.string().max(50).required(),
-        description:joi.string().max(120).required(),
-        content:joi.string().max(6000).required()
+        title: joi.string().min(5).required(),
+        description:joi.string().min(5).required(),
+        content:joi.string().min(6).required()
     });
     
     return schema.validate(data);
 }
-const illustrations = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '../illustrations')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }, 
-    limits:{fileSize:5000000}
-})
 
-const postillustrationValidation = multer({illustrations:illustrations});
 
 const commentValidation = (data)=>{
     const schema = joi.object({
@@ -80,6 +81,6 @@ module.exports.signinValidation = signinValidation;
 module.exports.resetPasswordValidation = resetPasswordValidation;
 module.exports.upload = upload;
 module.exports.addarticleValidation = addarticleValidation;
-module.exports.postillustrationValidation = postillustrationValidation;
 module.exports.commentValidation  =commentValidation;
+module.exports.uploadillustration = uploadillustration;
 

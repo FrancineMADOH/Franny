@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const Post = mongoose.model('Post', {
     title:{
-        required:true,
         type:String,
     },
     description:{
         type:String,
-        required:true,
         trim:true
     },
     content:{
@@ -17,7 +15,8 @@ const Post = mongoose.model('Post', {
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Admin',
-        required:true
+        username:String
+       
     },
     createdAt:{
         type:Date,

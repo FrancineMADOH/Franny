@@ -16,7 +16,12 @@
 </head>
 
 <body>
-    <h1>HELLO FRANNY</h1>
+    <div class="container">
+        <h1>New Article</h1>
+        <form action="/posts" method="POST">
+            <%- include('../partials/_form.ejs') %> 
+        </form>
+    </div> 
 </body>
 
 </html>

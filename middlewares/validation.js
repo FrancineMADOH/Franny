@@ -74,6 +74,12 @@ const commentValidation = (data)=>{
 
 return schema.validate(data);
 }
+//slugify middleware
+const slugifyPost = function(title){
+    if(this.title){
+        this.slug = slugify(this.title, { lower:true, strict:true });
+    }
+}
 
 
 module.exports.signupValidation = signupValidation;
@@ -82,5 +88,6 @@ module.exports.resetPasswordValidation = resetPasswordValidation;
 module.exports.upload = upload;
 module.exports.addarticleValidation = addarticleValidation;
 module.exports.commentValidation  =commentValidation;
-module.exports.uploadillustration = uploadillustration;
+module.exports.uploadillustration = uploadillustration; 
+module.exports.slugifyPost = slugifyPost;
 

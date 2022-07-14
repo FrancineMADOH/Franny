@@ -110,5 +110,20 @@ router.patch("/signout",verify, async(req,res)=>{
   
 });
 
+router.get('/signin', (req,res)=>{
+    res.render('admins/signin')
+})
+
+router.get('/signup', (req,res)=>{
+    res.render('admins/signup')
+})
+
+router.get('/reset',(req,res)=>{
+    res.render('admins/reset')
+})
+router.get('/dashboard',(req,res)=>{
+    res.render('admins/index')
+})
+
 
 module.exports = router;

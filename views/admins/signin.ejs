@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <!--Font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Franny - Signin</title>
+    <style>
+        body {
+            background-color: #C9BBCF;
+            margin-top: 20px;
+        }
+        .container {
+            margin: 0 auto;
+            border: solid 1px #1363df;
+            padding: 20px;
+            border-radius: 40px;
+        }
+        b{
+            color: #fff;
+        }
+        input[type=text], 
+        input[type=password] { 
+            width: 100%; 
+            padding: 12px 40px; 
+            margin: 8px 0; 
+            color: #1363df;
+            display: inline-block; 
+            border: 1px solid #ccc; 
+            box-sizing: border-box; 
+        } 
+        .input {
+            position: relative;
+        }
+          
+        .input i{
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: #1363df;
+        }
+       
+        @media only screen and (max-width: 600px) {
+            #eye {
+            position: absolute;
+            left: 290px;
+            top: 40px;
+            color: #1363df;
+        }
+  
+        }
+        @media only screen and (min-width: 600px) {
+            #eye {
+            position: absolute;
+            left: 300px;
+            top: 40px;
+            color: #1363df;
+        }
+  
+        }
+        @media only screen and (min-width: 1000px) {
+            #eye {
+            position: absolute;
+            left: 380px;
+            top: 40px;
+            color: #1363df;
+        }
+  
+        }
+        .generic{
+            color: #1363df;
+        }
+        button{
+            background-color: #1363df;
+            color:#fff;
+            width:100px;
+            height: 40px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="container col-lg-4 col-md-6">
+        <div class="title logo m-5 text-center">
+            <h4 class="generic">SIGNIN TO YOUR ACCOUNT</h4>
+        </div>
+        <form action="">
+            <div class="form-group input">
+                <label><b>Email Adress</b></label>
+                <input type="text" placeholder="Enter your email" name="email" required>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div>
+            <div class="form-group input">
+                <label><b>Password</b></label>
+                <input type="password"  placeholder="Enter your Password" name="password" required>
+                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                <i class="fa fa-eye-slash" id="eye" aria-hidden="true" onclick=""></i>
+            </div>
+            <p class="text-center">
+                <button class="m-3" type="submit">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    SIGNIN
+                </button>
+            </p>
+        </form>
+        <div class="text-center m-5">
+            <a href="/admin/reset">Forgot password ?</a>
+            <p class="generic">No account? <a href="/admin/signup">Create One</a> </p>
+        </div>
+    </div>
+</body>
+
+</html>
+

@@ -19,7 +19,7 @@ app.use(methodOverride('_method'))
 
 
 //imports routes
-const adminRoute = require('../routes/user_api');
+const adminRoute = require('../routes/admin_api');
 const postRoute = require('../routes/post_api');
 app.use('/admin', adminRoute);
 app.use('/posts',postRoute);

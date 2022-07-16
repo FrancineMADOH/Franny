@@ -42,37 +42,47 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
         //saving admin to the database
         const savedadmin = await admin.save();
         console.log('new user created!');
-        res.send(savedadmin);
+        res.redirect('/admin/signin')
 
     }catch(err){
         console.log(err)
         res.status(400).send(err);
     }
+
 });
 
 //login router
-router.patch('/signin', async(req,res)=> {
+router.put('/signin', async(req,res)=> {
+    
     //validate the data before login a user
     const {error} = signinValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+    
 
     const admin = await Admin.findOne({email:req.body.email});
     //  //check if the password matches
     if(!admin) return res.status(400).send('Wrong Email/Password combination');
     const verifyPassword = await bcrypt.compare(req.body.password,admin.password);
     if(!verifyPassword) return res.status(400).send('invalid password!');
+    
 
-    // //create a token an send it to the user
+    // //create a token an update the user 
     const token = jwt.sign({_id: admin._id }, process.env.SECRET_TOKEN);
-    res.header('auth_token', token);
-
-    try{
-        update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
-       res.send(token);
-   }catch(e){
-       console.log(e);
-   } 
+    //res.header('Access-Control-Expose-Headers','auth_token').header('auth_token', token);
+    //res.set('auth_token', token);
+    res.setHeader('auth_token', token)
+    res.redirect('/admin/dashboard');
+//     try{
+//         update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
+        
+//       res.redirect('/admin/dashboard');
+//    }catch(e){
+//        console.log(e);
+//    } 
 });
+router.get('/dashboard',(req,res)=>{
+    res.render('admins/index')
+})
 
 //update password
 router.patch('/reset', async (req,res)=>{
@@ -99,11 +109,10 @@ router.patch('/reset', async (req,res)=>{
 })
 
 //signout
-router.patch("/signout",verify, async(req,res)=>{
+router.put("/signout",verify, async(req,res)=>{
         try{
-            update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
-           res.send("admin successfully logout")
-       
+           update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           res.redirect('/admin/signin')  
         }catch(e){
            console.log(e);
        } 
@@ -121,8 +130,9 @@ router.get('/signup', (req,res)=>{
 router.get('/reset',(req,res)=>{
     res.render('admins/reset')
 })
-router.get('/dashboard',(req,res)=>{
-    res.render('admins/index')
+router.get('/dashboard',async (req,res)=>{
+    const admin = await Admin.findById(req.admin.id);
+    res.render('admins/index', {admin:admin})
 })
 
 

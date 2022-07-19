@@ -98,7 +98,7 @@
         <div class="title logo m-5 text-center">
             <h4 class="generic">RESET YOUR PASSWORD</h4>
         </div>
-        <form action="" method="">
+        <form action="/admin/reset?_method=PATCH" method="POST">
             <div class="form-group input">
                 <label><b>Email Adress</b></label>
                 <input type="text" placeholder="Enter your email" name="email" required>
@@ -106,16 +106,16 @@
             </div>
             <div class="form-group input">
                 <label><b>Enter New Password</b></label>
-                <input type="password"  placeholder="New Password" name="password" required>
+                <input type="password"  placeholder="Enter your new password" name="password" required>
                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                 <i class="fa fa-eye-slash" id="eye" aria-hidden="true" onclick=""></i>
             </div>
-            <div class="form-group input">
+            <!-- <div class="form-group input">
                 <label><b>Confirm Password</b></label>
                 <input type="password"  placeholder="Confirm Password" name="password" required>
                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                 <i class="fa fa-eye-slash" id="eye" aria-hidden="true" onclick=""></i>
-            </div>
+            </div> -->
             <p class="text-center">
                 <button class="m-3" type="submit">RESET</button>
             </p>

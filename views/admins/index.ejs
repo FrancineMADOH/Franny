@@ -16,13 +16,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>hello dashboard</h1>
-        <form method="POST" action="/admin/signout?_method=PUT" enctype="text/plain">
+    <%- include ('../partials/_header.ejs') %>
+    <div class="main container"> 
+        <h4>Welcome</h4>
+        <form method="POST" action="/admin/signout?_method=PATCH" >
             <button class="btn btn-dark">signout</button>
-        </form>
-       
-    </div> 
+        </form>   
+    </div>
+    <%- include ('../partials/footer.ejs') %>
 </body>
 
 </html>

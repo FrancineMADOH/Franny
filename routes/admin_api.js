@@ -20,12 +20,11 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
             data: Buffer.from(encode_img,'base64'), 
             contentType: req.file.mimetype
         }
-        console.log(img)
     // //check if the users already admin in the db
     const emailExist = await Admin.findOne({email:req.body.email});
     if(emailExist) return res.status(400).send('Email already exist!');
 
-    // //crypt the password
+    //crypt the password
     const salt = await bcrypt.genSalt(10);
     const cryptedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -40,7 +39,7 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
     });
     try{
         //saving admin to the database
-        const savedadmin = await admin.save();
+        await admin.save();
         console.log('new user created!');
         res.redirect('/admin/signin')
 
@@ -51,8 +50,8 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
 
 });
 
-//login router
-router.put('/signin', async(req,res)=> {
+//login route
+router.patch('/signin', async(req,res)=> {
     
     //validate the data before login a user
     const {error} = signinValidation(req.body);
@@ -66,19 +65,16 @@ router.put('/signin', async(req,res)=> {
     if(!verifyPassword) return res.status(400).send('invalid password!');
     
 
-    // //create a token an update the user 
+    //create a token an update the user 
     const token = jwt.sign({_id: admin._id }, process.env.SECRET_TOKEN);
-    //res.header('Access-Control-Expose-Headers','auth_token').header('auth_token', token);
-    //res.set('auth_token', token);
     res.setHeader('auth_token', token)
-    res.redirect('/admin/dashboard');
-//     try{
-//         update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
+    try{
+        update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
         
-//       res.redirect('/admin/dashboard');
-//    }catch(e){
-//        console.log(e);
-//    } 
+      res.redirect('/admin/dashboard');
+   }catch(e){
+       console.log(e);
+   } 
 });
 router.get('/dashboard',(req,res)=>{
     res.render('admins/index')
@@ -91,27 +87,26 @@ router.patch('/reset', async (req,res)=>{
     if(error) return res.status(400).send(error.details[0].message);
     //check if the user exist 
     const admin = await Admin.findOne({email:req.body.email});
+    
     if(!admin) return res.status(400).send("No user associated to this email!");
     //compare the last password with the new one
     const salt = await bcrypt.genSalt(10);
-    const verifyPassword = await bcrypt.compare(req.body.password,admin.password);
+    let  newcryptedPassword = await bcrypt.hash(req.body.password, salt);
+    const verifyPassword = await bcrypt.compare(newcryptedPassword,admin.password);
     if(verifyPassword) return res.status(400).send("New password must not be equal to last password");
-    
-    //update the password
-    const newcryptedPassword = await bcrypt.hash(req.body.password, salt);
-
     try{
-         update = await Admin.findOneAndUpdate({email:admin.email},{password:newcryptedPassword}, {new:false});
-        res.send("password updated")
+        update = await Admin.findOneAndUpdate({email:admin.email},{password:newcryptedPassword}, {new:false});
+        res.redirect('/admin/signin')
     }catch(e){
         console.log(e);
     }
 })
 
 //signout
-router.put("/signout",verify, async(req,res)=>{
+router.patch("/signout", async(req,res)=>{
         try{
-           update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           //update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           res.setHeader('auth_token', "")
            res.redirect('/admin/signin')  
         }catch(e){
            console.log(e);
@@ -130,9 +125,9 @@ router.get('/signup', (req,res)=>{
 router.get('/reset',(req,res)=>{
     res.render('admins/reset')
 })
-router.get('/dashboard',async (req,res)=>{
+router.get('/dashboard',verify,async (req,res)=>{
     const admin = await Admin.findById(req.admin.id);
-    res.render('admins/index', {admin:admin})
+    res.render('admins/index', { admin:admin })
 })
 
 

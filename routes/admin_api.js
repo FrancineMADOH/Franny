@@ -76,7 +76,7 @@ router.patch('/signin', async(req,res)=> {
        console.log(e);
    } 
 });
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',verify,(req,res)=>{
     res.render('admins/index')
 })
 
@@ -103,9 +103,9 @@ router.patch('/reset', async (req,res)=>{
 })
 
 //signout
-router.patch("/signout", async(req,res)=>{
+router.patch("/signout",verify, async(req,res)=>{
         try{
-           //update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
            res.setHeader('auth_token', "")
            res.redirect('/admin/signin')  
         }catch(e){
@@ -125,10 +125,7 @@ router.get('/signup', (req,res)=>{
 router.get('/reset',(req,res)=>{
     res.render('admins/reset')
 })
-router.get('/dashboard',verify,async (req,res)=>{
-    const admin = await Admin.findById(req.admin.id);
-    res.render('admins/index', { admin:admin })
-})
+
 
 
 module.exports = router;

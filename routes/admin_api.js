@@ -76,7 +76,7 @@ router.patch('/signin', async(req,res)=> {
        console.log(e);
    } 
 });
-router.get('/dashboard',verify,(req,res)=>{
+router.get('/dashboard',(req,res)=>{ //,verify
     res.render('admins/index')
 })
 

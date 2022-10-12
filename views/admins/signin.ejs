@@ -5,118 +5,66 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
-    <!--Font awesome-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <title>Franny - Signin</title>
     <style>
-        body {
-            background-color: #C9BBCF;
-            margin-top: 20px;
+        .body{
+            background-color: #f0f1f3e7;
         }
-        .container {
-            margin: 0 auto;
-            border: solid 1px #1363df;
-            padding: 20px;
-            border-radius: 40px;
+        h1,h4,label{
+            color: #42d12b;
         }
-        b{
-            color: #fff;
-        }
-        input[type=text], 
-        input[type=password] { 
-            width: 100%; 
-            padding: 12px 40px; 
-            margin: 8px 0; 
-            color: #1363df;
-            display: inline-block; 
-            border: 1px solid #ccc; 
-            box-sizing: border-box; 
-        } 
-        .input {
-            position: relative;
-        }
-          
-        .input i{
-            position: absolute;
-            left: 15px;
-            top: 40px;
-            color: #1363df;
-        }
-       
-        @media only screen and (max-width: 600px) {
-            #eye {
-            position: absolute;
-            left: 290px;
-            top: 40px;
-            color: #1363df;
-        }
-  
-        }
-        @media only screen and (min-width: 600px) {
-            #eye {
-            position: absolute;
-            left: 300px;
-            top: 40px;
-            color: #1363df;
-        }
-  
-        }
-        @media only screen and (min-width: 1000px) {
-            #eye {
-            position: absolute;
-            left: 380px;
-            top: 40px;
-            color: #1363df;
-        }
-  
-        }
-        .generic{
-            color: #1363df;
-        }
-        button{
-            background-color: #1363df;
-            color:#fff;
-            width:100px;
-            height: 40px;
-            border-radius: 10px;
+        a{
+            color: #42d12b;
+            text-decoration: none;
             font-weight: bold;
         }
-       
+        a:hover{
+            color: #1f252a;
+        }
+        button, .btn{
+            background-color: #42d12b;
+            font-weight: bold;
+        }
+        form{
+            border: #dcdcdd solid 1px;
+            padding: 10px;
+            border-radius: 12px;
+        }
     </style>
+       
 </head>
 
 <body>
-    <div class="container col-lg-4 col-md-6">
-        <div class="title logo m-5 text-center">
-            <h4 class="generic">SIGNIN TO YOUR ACCOUNT</h4>
+    <div class="container col-lg-6">
+        <div class="logo text-center">
+            <h1 class="m-3">SIGNIN TO YOUR ACCOUNT</h4>
+                <div class="m-2">
+                    <img  src="/images/newlogo.png" alt="logo franny">
+                </div>
         </div>
-        <form method="POST" action="/admin/signin?_method=PATCH"  enctype="application/x-www-form-urlencoded">
-            <div class="form-group input">
-                <label><b>Email Adress</b></label>
-                <input type="text" placeholder="Enter your email" name="email" required>
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-            </div>
-            <div class="form-group input">
-                <label><b>Password</b></label>
-                <input type="password"  placeholder="Enter your Password" name="password" required>
-                <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                <i class="fa fa-eye-slash" id="eye" aria-hidden="true" onclick=""></i>
-            </div>
-            <p class="text-center">
-                <button class="m-3" type="submit">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    SIGNIN
-                </button>
-            </p>
-        </form>
+        <div class="m-5">
+            <form method="POST" action="/admin/signin?_method=PATCH"  enctype="application/x-www-form-urlencoded">
+                <div class="form-group m-2">
+                    <label for="Email">Email Adress</label>
+                    <input class="form-control" type="text" placeholder="Enter your email" name="email" required>
+                </div>
+                <div class="form-group m-2">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password"  placeholder="Enter your Password" name="password" required>
+                </div>
+                <p class="text-center">
+                    <button class=" btn m-3" type="submit">
+                        Sign into your account
+                    </button>
+                </p>
+            </form>
+        </div>
+        
         <div class="text-center m-5">
             <a href="/admin/reset">Forgot password ?</a>
             <p class="generic">No account? <a href="/admin/signup">Create One</a> </p>

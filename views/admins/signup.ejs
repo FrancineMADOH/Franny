@@ -15,7 +15,6 @@
     <style>
         /* TODO: fix the overflowing width*/
         .main{
-            max-width: 100%;
             background-color: #f0f1f3e7;
         }
         .avatar{
@@ -32,70 +31,75 @@
             background-color: #296029;
             font-weight: bold;
         }
+        form{
+            border: solid 1px #777;
+            padding: 15px;
+            border-radius: 5%;
+        }
     </style>
 </head>
 
 <body>
-    <div class="main p-lg-2">
 
-        <div class="row">
-            <div class="col-lg-6" >
-                <div class="row m-lg-3">
-                    <img class="avatar" height="350px" width="100px" src="/images/newlogo.png" alt="logo franny">
+    <div class="main row">
+        <div class="col-lg-6 sidebar">
+            <div >
+                <div class="text-center ">
+                    <img class="avatar" height="300px" width="300px" src="/images/newlogo.png" alt="logo franny">
                 </div>
-                <hr style="border:solid #000 2px;">
-                <div class="row text-center">
-                    <h1 class="my-3">Welcome to Franny</h3>
-                    <p class="my-2">Here we talk about <strong>Feminity</strong> <strong>Maternity</strong> and <strong>Family</strong> </p>
-                    <p class="my-3">Create an account to start share content with the world</p>
+                <hr style="border:solid #000 1px;">
+                <div class=" text-center">
+                    <h1 class="">Welcome to Franny</h3>
+                    <p class="">Here we talk about <strong>Feminity</strong> <strong>Maternity</strong> and <strong>Family</strong> </p>
+                    <p class="">Create an account to start share content with the world</p>
                     <h6>Already have an account ? <a href="/admin/signin" class="btn btm-infos">Signup to your account</a></h4>
                 </div>
             </div>
-            <!--Welcome -->
-
-            <div class="col-lg-6">
-                <div class="row m-lg-4 text-center">
+        </div>
+        <div class="col-lg-6 px-4 create-account">
+                <div class="row text-center my-2">
                     <h1>CREATE AN ACCOUNT</h4>
                 </div>
-                <div class="row m-4">
+                <div class="">
                     <form action="/admin/signup" method="POST" enctype="multipart/form-data"> 
-                        <div class="form-group m-4">
+                        <div class="form-group">
                             <label class="control-label" for="username"><b>Username</b></label>
                             <div class="input-group">
                                 <input class="form-control" type="text" placeholder="Enter your name" id="username" name="username" required>  
                             </div>
                         </div>
-                        <div class="form-group m-4">
+                        <div class="form-group my-2">
                             <label><b>Email Adress</b></label>
                             <input  class="form-control" type="text" placeholder="Enter your email" name="email" required>
                         </div>
-                        <div class="form-group m-4">
+                        <div class="form-group my-2">
                             <label><b>Social Link I</b></label>
                             <input  class="form-control" type="text" placeholder="Enter a social network account link eg: LikedIn"
                                 name="social1" id="social1" required>
                         </div>
-                        <div class="form-group m-4">
+                        <div class="form-group my-2">
                             <label><b>Social Link II</b></label>
                             <input  class="form-control" type="text" placeholder="Enter another social network account link eg: Facebook"
                                 name="social2" id="social2" required>
                         </div>
 
-                        <div class="form-group m-4">
+                        <div class="form-group my-2">
                             <label><b>Password</b></label>
                             <input type="password"  class="form-control" placeholder="Enter A Password" name="password" required>
                         </div>
-                        <div class="form-group  m-4">
+                        <div class="form-group my-2">
                             <label for="avatar">Upload a profile picture</label>
                             <input type="file" name="avatar" id="avatar">
                         </div>
                         <p class="text-center">
-                            <button class=" btn m-3" type="submit">Create my account</button>
+                            <button class=" btn my-4" type="submit">Create my account</button>
                         </p>
                     </form>
                 </div>
-            </div>
         </div>
     </div>
+
+        
 </body>
 
 </html>

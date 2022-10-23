@@ -13,17 +13,34 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <title>Franny</title>
+    <style>
+        .body{
+            background-color: #f0f1f3e7;
+        }
+        .all{
+            background-color: #42d12b;
+            color: #fff;
+        }
+        .all:hover{
+            background-color: #296029;
+            color: #fff;}
+            h1,h4{
+           color: #42d12b;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container p-3">
 
-        <a href="/posts" class="btn btn-info">All blogPosts</a>
-        <a href="/posts/edit/<%= post.id  %> " class="btn btn-info">Edit</a>
+        <a href="/posts" class="btn all mx-2">All Posts</a>
+        <a href="/posts/edit/<%= post.id  %> " class="btn btn-secondary mx-2">Edit</a>
 
-        <h1>
-            <%= post.title %> 
-        </h1>
+        <h1><%= post.title %></h1>
+        <div class="content">
+            <%= post.content %>
+        </div>
         
     
 

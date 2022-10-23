@@ -23,6 +23,9 @@ const adminRoute = require('../routes/admin_api');
 const postRoute = require('../routes/post_api');
 app.use('/admin', adminRoute);
 app.use('/posts',postRoute);
+app.get('/', (req,res)=>{
+    res.render('posts/documentation')
+})
 
 
 app.listen( port, ()=>{

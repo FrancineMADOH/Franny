@@ -68,7 +68,7 @@ router.delete('/:id',async(req,res)=>{
 
 function saveAndRedirect(path){
     return async(req,res)=>{
-    const {error} = addarticleValidation(req.body)
+   const {error} = addarticleValidation(req.body)
     if(error) return res.status(400).send(error.details[0].message);
     // let img = req.file.path;
     // let encode_img = img.toString('base64');

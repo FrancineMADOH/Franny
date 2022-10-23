@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Franny - Signin</title>
+    <style>
+        .body{
+            background-color: #f0f1f3e7;
+        }
+        h3,label{
+            color: #42d12b;
+        }
+        a{
+            color: #42d12b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover{
+            color: #1f252a;
+        }
+        button, .btn{
+            background-color: #42d12b;
+            font-weight: bold;
+        }
+        form{
+            border: #dcdcdd solid 1px;
+            padding: 10px;
+            border-radius: 12px;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div class="container col-lg-6">
+        <div class="text-center">
+            <div class="row m-1">
+                <img  src="/images/newlogo.png" alt="logo franny" >
+                <h3>RESET YOUR PASSWORD</h3>
+
+            </div>
+        </div>
+        <form action="/admin/reset?_method=PATCH" method="POST">
+            <div class="form-group ">
+                <label for="Email">Email Adress</label>
+                <input class="form-control" type="text" placeholder="Enter your email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="new password">Enter New Password</label>
+                <input class="form-control" type="password"  placeholder="Enter your new password" name="password" required>
+            </div>
+            <!-- TODO : compare those two passsord before send it to the server -->
+            <div class="form-group">
+                <label for="CONFIRM PASSWORD">Confirm Password</label>
+                <input class="form-control" type="password"  placeholder="Confirm Password" name="password" required>
+            </div>
+            <p class="text-center">
+                <button class=" btn m-1" type="submit">Reset my password</button>
+            </p>
+        </form>
+        <div class="text-center m-1">
+            <p>Go back and  <a href="/admin/signin">Login to your account</a> instead</p>
+            
+        </div>
+    </div>
+</body>
+
+</html>
+

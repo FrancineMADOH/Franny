@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Franny</title>
+    <style>
+        .sidebar, .footer{
+            background-color: rgb(51, 50, 50);
+            color: #42d12b;
+        }
+        .footer{
+            height: 45px;
+        }
+    
+        hr{
+            border: #fff solid 2px;
+        }
+        li{
+            list-style-type: none;
+            color: #42d12b; 
+            margin: 20px;
+        }
+        a{
+            text-decoration: none;
+            color: #42d12b;
+        }
+        a:hover{
+            color: #296029;
+            text-decoration: none;
+        }
+        button {
+            background-color: #42d12b;
+        }
+        .new:hover{
+            color: #fff;
+            background-color:#296029 ;
+        }
+        h1,h6{
+            color: #42d12b;
+        }
+        .header{
+            background-color: #f0f1f3e7;
+        }
+        .upward{
+            background-color: #f0f1f3e7;
+            border-radius: 20px;
+            height: 100px;
+            padding: 10px;
+            text-align: center;
+
+        }
+        .downward{
+            background-color: #f0f1f3e7;
+            border-radius: 20px;
+            height: 320px;
+            padding: 10px;
+            text-align: center;
+        }
+        .nav-link{
+            display: flex;
+            flex-direction: row-reverse;
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid"> 
+        <div class="row main-content my-1">
+            <!--TODO: make the sidebar go down on small screesns-->
+            <div class="col-lg-2 sidebar">      
+                <img class="img img-fluid"  src="/images/newlogo.png" alt="logo franny">
+                <hr>
+                <h6 class="m-2 text-center">Welcome back: admin</h6>
+                <ul>
+                    <li><img src="/avatars/acoudre.jpeg" height="100px" width="100px" style="border-radius: 50%;"></li>
+                    <li><a href="/posts/documentation.ejs">Documentation</a></li>
+                    <li><a href="/admins/profile.ejs">Profile</a></li>
+                    <li>  
+                        <form method="POST" action="/admin/signout?_method=PATCH" >
+                            <button class="btn">Signout</button>
+                        </form> 
+                    </li>  
+                </ul> 
+            </div>
+            <div class="col-lg-10"> 
+                <div class="row header"> 
+                        <div class="col-lg-4 my-2">
+                            <h1>DASHBOARD</h1>
+                        </div>
+                        <div class="col-lg-8">
+                            <ul class="nav-link">
+                                <li><a class="btn new" style="background-color: #42d12b;" href="/posts/new">New Article</a></li>
+                                <li><a class="btn" href="/posts/">All article</a> </li>
+                                    <!--semantique horrible -->
+                            </ul>
+                        </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-lg-4">
+                        <div class="upward m-2">
+                            <h6>Total View</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="upward m-2">
+                            <h6>Total comments</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="upward m-2">
+                            <h6>New messages</h6>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-lg-4 ">
+                        <div class="downward m-2">
+                            <h6>Statistics</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="downward m-2">
+                            <h6>Most readed</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="downward m-2">
+                            <h6>Most Liked</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row footer">
+            copyright 2022 -  franny
+        </div>
+       
+
+       
+  
+    </div>
+    <!-- <%- include ('../partials/footer.ejs') %> -->
+</body>
+
+</html>

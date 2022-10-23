@@ -13,11 +13,26 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <title>Franny</title>
+    <style>
+        .body{
+            background-color: #f0f1f3e7;
+        }
+        h1,label{
+            color: #42d12b;
+            font-weight: bold;
+        }
+        .button{
+            background-color: #42d12b;
+        }
+        .button:hover{
+            background-color:  #296029;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Edit Article</h1>
+    <div class="container p-3">
+        <h1 class="m-2 text-center">Edit Article</h1>
         <form action="/posts/<%= post.id  %> ?_method=PUT"_method="POST">
             <%- include('../partials/_form.ejs') %> 
         </form>

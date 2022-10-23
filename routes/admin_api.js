@@ -20,12 +20,11 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
             data: Buffer.from(encode_img,'base64'), 
             contentType: req.file.mimetype
         }
-        console.log(img)
     // //check if the users already admin in the db
     const emailExist = await Admin.findOne({email:req.body.email});
     if(emailExist) return res.status(400).send('Email already exist!');
 
-    // //crypt the password
+    //crypt the password
     const salt = await bcrypt.genSalt(10);
     const cryptedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -40,39 +39,46 @@ router.post('/signup', upload.single('avatar'), async(req,res)=>{
     });
     try{
         //saving admin to the database
-        const savedadmin = await admin.save();
+        await admin.save();
         console.log('new user created!');
-        res.send(savedadmin);
+        res.redirect('/admin/signin')
 
     }catch(err){
         console.log(err)
         res.status(400).send(err);
     }
+
 });
 
-//login router
+//login route
 router.patch('/signin', async(req,res)=> {
+    
     //validate the data before login a user
     const {error} = signinValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+    
 
     const admin = await Admin.findOne({email:req.body.email});
     //  //check if the password matches
     if(!admin) return res.status(400).send('Wrong Email/Password combination');
     const verifyPassword = await bcrypt.compare(req.body.password,admin.password);
     if(!verifyPassword) return res.status(400).send('invalid password!');
+    
 
-    // //create a token an send it to the user
+    //create a token an update the user 
     const token = jwt.sign({_id: admin._id }, process.env.SECRET_TOKEN);
-    res.header('auth_token', token);
-
+    res.setHeader('auth_token', token)
     try{
         update = await Admin.findOneAndUpdate({email:admin.email},{authtoken:token}, {new:false});
-       res.send(token);
+        
+      res.redirect('/admin/dashboard');
    }catch(e){
        console.log(e);
    } 
 });
+router.get('/dashboard',(req,res)=>{ //,verify
+    res.render('admins/index')
+})
 
 //update password
 router.patch('/reset', async (req,res)=>{
@@ -81,18 +87,16 @@ router.patch('/reset', async (req,res)=>{
     if(error) return res.status(400).send(error.details[0].message);
     //check if the user exist 
     const admin = await Admin.findOne({email:req.body.email});
+    
     if(!admin) return res.status(400).send("No user associated to this email!");
     //compare the last password with the new one
     const salt = await bcrypt.genSalt(10);
-    const verifyPassword = await bcrypt.compare(req.body.password,admin.password);
+    let  newcryptedPassword = await bcrypt.hash(req.body.password, salt);
+    const verifyPassword = await bcrypt.compare(newcryptedPassword,admin.password);
     if(verifyPassword) return res.status(400).send("New password must not be equal to last password");
-    
-    //update the password
-    const newcryptedPassword = await bcrypt.hash(req.body.password, salt);
-
     try{
-         update = await Admin.findOneAndUpdate({email:admin.email},{password:newcryptedPassword}, {new:false});
-        res.send("password updated")
+        update = await Admin.findOneAndUpdate({email:admin.email},{password:newcryptedPassword}, {new:false});
+        res.redirect('/admin/signin')
     }catch(e){
         console.log(e);
     }
@@ -101,14 +105,27 @@ router.patch('/reset', async (req,res)=>{
 //signout
 router.patch("/signout",verify, async(req,res)=>{
         try{
-            update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
-           res.send("admin successfully logout")
-       
+           update = await Admin.findOneAndUpdate({id:req.admin.id},{authtoken:""}, {new:false});
+           res.setHeader('auth_token', "")
+           res.redirect('/admin/signin')  
         }catch(e){
            console.log(e);
        } 
   
 });
+
+router.get('/signin', (req,res)=>{
+    res.render('admins/signin')
+})
+
+router.get('/signup', (req,res)=>{
+    res.render('admins/signup')
+})
+
+router.get('/reset',(req,res)=>{
+    res.render('admins/reset')
+})
+
 
 
 module.exports = router;

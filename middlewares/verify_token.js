@@ -13,8 +13,6 @@ async function verify_token(req,res,next){
            console.log('invalid token !');
             res.send(err);
     }
-    
-    //everything ok
 }
 module.exports = verify_token;
 

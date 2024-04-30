@@ -21,8 +21,10 @@ app.use(methodOverride('_method'))
 //imports routes
 const adminRoute = require('../routes/admin_api');
 const postRoute = require('../routes/post_api');
+const todoRoute = require('../routes/todo_api');
 app.use('/admin', adminRoute);
 app.use('/posts',postRoute);
+app.use('/todos',todoRoute );
 app.get('/', (req,res)=>{
     res.render('posts/documentation')
 })
